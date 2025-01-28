@@ -15,3 +15,9 @@ Desenvolver uma aplicação web simples que utilize inteligência artificial par
 
 - **Produtivo:** Emails que requerem uma ação ou resposta específica (ex.: solicitações de suporte técnico, atualização sobre casos em aberto, dúvidas sobre o sistema).
 - **Improdutivo:** Emails que não necessitam de uma ação imediata (ex.: mensagens de felicitações, agradecimentos).
+
+## Comandos para a execução
+
+- pip install flask transformers pandas scikit-learn
+
+- pip install nltk
