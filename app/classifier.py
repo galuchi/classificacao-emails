@@ -28,10 +28,10 @@ def preprocess_text(text):
         str: Texto pré-processado.
     """
     if not text or not isinstance(text, str):
-        raise ValueError("O texto de entrada deve ser uma string válida.")
+        raise ValueError("O texto de entrada deve ser uma string valida.")
 
     # Remoção de caracteres especiais e números
-    text = re.sub(r"[^a-zA-Záéíóúãõç\s]", "", text)
+    text = re.sub(r"[^a-zA-Z\s]", "", text)
     text = text.lower()
 
     # Tokenização
@@ -57,10 +57,10 @@ def classify_email(text, default_category="Improdutivo"):
         str: Categoria do email ('Produtivo' ou 'Improdutivo').
     """
     if not text or not isinstance(text, str):
-        raise ValueError("O texto de entrada deve ser uma string válida.")
+        raise ValueError("O texto de entrada deve ser uma string valida.")
 
     # Palavras-chave para cada categoria
-    productive_keywords = ["atualização", "pedido", "urgente", "suporte", "dúvida", "atendimento"]
+    productive_keywords = ["atualização", "pedido", "urgente", "suporte", "dúvida", "atendimento", "atenção"]
     unproductive_keywords = ["obrigado", "parabéns", "feliz", "natal", "páscoa"]
 
     # Pré-processar o texto
