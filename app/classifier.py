@@ -1,75 +1,53 @@
-import re
-import nltk
-from nltk.corpus import stopwords
+from groq import Groq
+import os
 
-# Baixar recursos necessários do NLTK
-nltk.download('stopwords')
-nltk.download('punkt')
-nltk.download('punkt_tab')
-nltk.download('wordnet')
+# Configurar a API Key da Groq
+client = Groq(api_key="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")
 
-# Configuração inicial
-STOPWORDS = set(stopwords.words('portuguese'))  # Configurado para português
-LEMMA = nltk.WordNetLemmatizer()
 
-def preprocess_text(text):
+#Classifica o texto como 'Produtivo' ou 'Improdutivo' e gera uma resposta automática.
+
+def classify_and_generate_response(text):
+   
+    prompt = f"""
+    Você é um assistente que classifica emails como 'Produtivo' ou 'Improdutivo' e gera uma resposta automática.
+    
+    Texto do email:
+    {text}
+
+    Saída esperada:
+    - Categoria: (Produtivo ou Improdutivo)
+    - Resposta sugerida: (Uma mensagem automática educada baseada na categoria com até 50 palavras)\n\n
+    
+    Retorne os valores no seguinte formato:
+    Categoria: <categoria>
+    Resposta: <resposta gerada>
+    IMPORTANTE: Sempre forneça tanto a categoria quanto a resposta, sem exceção.
+    Se for Produtivo, gere uma resposta curta e direta.
     """
-    Realiza o pré-processamento básico do texto.
-    
-    - Remove caracteres especiais e números.
-    - Converte para minúsculas.
-    - Tokeniza o texto.
-    - Remove stopwords e aplica lematização.
-    
-    Args:
-        text (str): Texto a ser pré-processado.
-    
-    Returns:
-        str: Texto pré-processado.
-    """
-    if not text or not isinstance(text, str):
-        raise ValueError("O texto de entrada deve ser uma string valida.")
 
-    # Remoção de caracteres especiais e números
-    text = re.sub(r"[^a-zA-Z\s]", "", text)
-    text = text.lower()
+    response = client.chat.completions.create(
+        model="llama-3.2-3b-preview",
+        messages=[{"role": "user", "content": prompt}],
+        temperature=0.7,
+        max_tokens=150
+    )
 
-    # Tokenização
-    tokens = nltk.word_tokenize(text)
+    print("Resposta bruta da IA:", response.choices[0].message.content)
+    output = response.choices[0].message.content.strip().split("\n")
 
-    # Remoção de stopwords e lematização
-    processed_tokens = [
-        LEMMA.lemmatize(word) for word in tokens if word not in STOPWORDS
-    ]
+     # Garantir que temos pelo menos duas linhas válidas
+    if len(output) < 2:
+        return {"category": output[0].split(":")[-1].strip(), "response": "Erro: resposta não gerada pela IA."}
 
-    return " ".join(processed_tokens)
+    category = output[0].split(":")[-1].strip()
+    generated_response = output[1].split(":")[-1].strip()
 
+    # Remover espaços extras no início da resposta
+    generated_response = generated_response.lstrip()
 
-def classify_email(text, default_category="Improdutivo"):
-    """
-    Classifica o email como 'Produtivo' ou 'Improdutivo'.
-    
-    Args:
-        text (str): Texto do email a ser classificado.
-        default_category (str): Categoria padrão caso nenhuma palavra-chave seja encontrada.
-    
-    Returns:
-        str: Categoria do email ('Produtivo' ou 'Improdutivo').
-    """
-    if not text or not isinstance(text, str):
-        raise ValueError("O texto de entrada deve ser uma string valida.")
+    # Limitar tamanho da resposta para evitar estouro de tokens
+    if len(generated_response.split()) > 50:
+        generated_response = " ".join(generated_response.split()[:50]) + "..."
 
-    # Palavras-chave para cada categoria
-    productive_keywords = ["atualização", "pedido", "urgente", "suporte", "dúvida", "atendimento", "atenção"]
-    unproductive_keywords = ["obrigado", "parabéns", "feliz", "natal", "páscoa"]
-
-    # Pré-processar o texto
-    text = preprocess_text(text)
-
-    # Verifica palavras-chave
-    if any(word in text for word in productive_keywords):
-        return "Produtivo"
-    elif any(word in text for word in unproductive_keywords):
-        return "Improdutivo"
-    else:
-        return default_category  # Categoria padrão
+    return {"category": category, "response": generated_response}
