@@ -3,26 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <title>Classificação de Emails</title>
 </head>
 <body>
-    <h1>Classificação de Emails</h1>
-    <form action="/classify" method="post" enctype="multipart/form-data">
-        <label for="email_text">Texto do Email:</label>
-        <textarea id="email_text" name="email_text"></textarea>
-        <br>
-        <label for="file">Ou envie um arquivo:</label>
-        <input type="file" id="file" name="file">
-        <br>
-        <button type="submit">Classificar</button>
-    </form>
-    
-    <hr>
-    
-    <h3>Resultados</h3>
-    <p><strong>Categoria:</strong> <span id="category">N/A</span></p>
-    <p><strong>Resposta Sugerida:</strong> <span id="response">N/A</span></p>
-
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <div class="container">
+        <div class="left-section">
+            <h1>Classificador Automático de E-mails</h1>
+            <form action="/classify" method="post" enctype="multipart/form-data">
+                <label for="email_text">Insira o texto do email diretamente</label> <br>
+                <textarea id="email_text" name="email_text" placeholder="..."></textarea>
+                <label for="file"><p class="file-info">Ou envie um arquivo<br><small>Serão aceitas apenas as extensões .txt e .pdf</small></p></label>
+                <div class="file-upload">
+                    <header>Arraste o arquivo</header>
+                    <p>ou</p>
+                    <button type="button">Procurar</button>
+                    <input type="file" id="file" name="file" style="display: none;">
+                </div>
+                <script src="{{ url_for('static', filename='file-upload.js') }}"></script>
+                <div class="buttons">
+                    <button class="btn btn-outline" type="submit">Gerar</button>
+                </div>
+            </form>
+        </div>   
+        <div class="right-section">
+            <h3>Resultados</h3>
+            <p><strong>Categoria:</strong> 
+                <span id="category">N/A</span> 
+                <span id="category-icon"></span> </p>
+            <p><strong>Resposta Sugerida:</strong> 
+                <span id="response">N/A</span></p>
+            <script src="{{ url_for('static', filename='script.js') }}"></script>
+        </div>
+    </div>
 </body>
 </html>
