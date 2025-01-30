@@ -1,17 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Classificação de Emails</title>
 </head>
-
 <body>
     <h1>Classificação de Emails</h1>
-    <form method="POST" action="/">
-        <textarea name="email" placeholder="Cole aqui o conteúdo do email"></textarea>
-        <button type="submit">Enviar</button>
+    <form action="/classify" method="post" enctype="multipart/form-data">
+        <label for="email_text">Texto do Email:</label>
+        <textarea id="email_text" name="email_text"></textarea>
+        <br>
+        <label for="file">Ou envie um arquivo:</label>
+        <input type="file" id="file" name="file">
+        <br>
+        <button type="submit">Classificar</button>
     </form>
+    
+    <hr>
+    
+    <h3>Resultados</h3>
+    <p><strong>Categoria:</strong> <span id="category">N/A</span></p>
+    <p><strong>Resposta Sugerida:</strong> <span id="response">N/A</span></p>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
