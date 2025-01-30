@@ -24,3 +24,5 @@ Desenvolver uma aplicação web simples que utilize inteligência artificial par
 
 - pip install PyPDF2
 
+- teste
+
