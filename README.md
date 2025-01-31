@@ -16,7 +16,7 @@ Desenvolver uma aplicação web simples que utilize inteligência artificial par
 - **Produtivo:** Emails que requerem uma ação ou resposta específica (ex.: solicitações de suporte técnico, atualização sobre casos em aberto, dúvidas sobre o sistema).
 - **Improdutivo:** Emails que não necessitam de uma ação imediata (ex.: mensagens de felicitações, agradecimentos).
 
-## Comandos para a execução
+## Comandos para a execucar a aplicação localmente
 
 1. Clone este repositório:
    ```sh
@@ -35,7 +35,7 @@ Desenvolver uma aplicação web simples que utilize inteligência artificial par
    ```
    A instalação pode demorar um pouco, então relaxe, pegue um cafézinho...
 
-4. Defina as variáveis de ambiente necessárias:
+4. Execute a aplicação:
    ```sh
    python run.py
    ```
