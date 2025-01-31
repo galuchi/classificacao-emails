@@ -23,7 +23,7 @@ Desenvolver uma aplicação web simples que utilize inteligência artificial par
    git clone https://github.com/galuchi/classificacao-emails.git
    cd classificacao-emails
    ```
-2. Crie e ative um ambiente virtual (opcional, mas recomendado):
+2. Crie e ative um ambiente virtual:
    ```sh
    python -m venv env
    source env/bin/activate  # No Linux 
