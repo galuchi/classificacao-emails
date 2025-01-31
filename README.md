@@ -18,7 +18,7 @@ Desenvolver uma aplicação web simples que utilize inteligência artificial par
 
 ## Comandos para a execucar a aplicação localmente
 
-1. Clone este repositório:
+1. Em seu terminal, clone este repositório em uma pasta desejada
    ```sh
    git clone https://github.com/galuchi/classificacao-emails.git
    cd classificacao-emails
