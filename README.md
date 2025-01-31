@@ -18,12 +18,26 @@ Desenvolver uma aplicação web simples que utilize inteligência artificial par
 
 ## Comandos para a execução
 
-- pip install flask transformers pandas scikit-learn
+1. Clone este repositório:
+   ```sh
+   git clone https://github.com/seu-usuario/classificacao-emails.git
+   cd classificacao-emails
+   ```
+2. Crie e ative um ambiente virtual (opcional, mas recomendado):
+   ```sh
+   python -m venv env
+   source env/bin/activate  # No Linux 
+   env\Scripts\activate     # No Windows
+   ```
+3. Instale as dependências:
+   ```sh
+   pip install -r requirements.txt
+   ```
+   A instalação pode demorar um pouco, então relaxe, pegue um cafézinho...
 
-- pip install nltk
-
-- pip install PyPDF2
-
-- pip install groq
-
+4. Defina as variáveis de ambiente necessárias:
+   ```sh
+   python run.py
+   ```
+5. Acesse a aplicação em: [http://127.0.0.1:5000]
 
